@@ -59,6 +59,7 @@ using (ECommerceContext db = new ECommerceContext())
     Console.WriteLine($"N. of orders: {orders.Count}");
 
     Console.WriteLine("Order recap:");
+
     foreach(Order order in orders)
     {
         Console.WriteLine($"Date of order: {order.Date}\nOrder amount: {order.Amount}");
