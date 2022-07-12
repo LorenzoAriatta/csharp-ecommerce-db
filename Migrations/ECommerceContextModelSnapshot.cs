@@ -44,7 +44,7 @@ namespace csharp_ecommerce_db.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("student");
+                    b.ToTable("customer");
                 });
 
             modelBuilder.Entity("Order", b =>
@@ -72,7 +72,22 @@ namespace csharp_ecommerce_db.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("course");
+                    b.ToTable("order");
+                });
+
+            modelBuilder.Entity("OrderProduct", b =>
+                {
+                    b.Property<int>("OrderedOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderedOrderId", "ProductsProductId");
+
+                    b.HasIndex("ProductsProductId");
+
+                    b.ToTable("OrderProduct");
                 });
 
             modelBuilder.Entity("Product", b =>
@@ -87,17 +102,16 @@ namespace csharp_ecommerce_db.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(6,2)");
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("course_image");
+                    b.ToTable("product");
                 });
 
             modelBuilder.Entity("Order", b =>
@@ -111,16 +125,19 @@ namespace csharp_ecommerce_db.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Product", b =>
+            modelBuilder.Entity("OrderProduct", b =>
                 {
                     b.HasOne("Order", null)
-                        .WithMany("Products")
-                        .HasForeignKey("OrderId");
-                });
+                        .WithMany()
+                        .HasForeignKey("OrderedOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("Order", b =>
-                {
-                    b.Navigation("Products");
+                    b.HasOne("Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
