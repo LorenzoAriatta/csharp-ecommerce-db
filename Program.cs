@@ -55,6 +55,7 @@ using (ECommerceContext db = new ECommerceContext())
 
     //Customer orderCustomer = db.Orders.Join;
 
+    // print order by customer
     List<Order> orders = db.Orders.Where(order => order.CustomerId == 1).ToList();
     Console.WriteLine($"N. of orders: {orders.Count}");
 
@@ -64,4 +65,13 @@ using (ECommerceContext db = new ECommerceContext())
     {
         Console.WriteLine($"Date of order: {order.Date}\nOrder amount: {order.Amount}");
     }
+
+    // delete order of a customer
+    /*Order newOrder6 = new Order(DateTime.Parse("31/10/2020"), 1, "Cancelling", 3);
+    db.Add(newOrder6);
+    db.SaveChanges();*/
+
+    Order toRemove = db.Orders.Where(order => order.CustomerId == 3).FirstOrDefault();
+    db.Remove(toRemove);
+    db.SaveChanges();
 }
