@@ -54,4 +54,13 @@ using (ECommerceContext db = new ECommerceContext())
     //                          select ); 
 
     //Customer orderCustomer = db.Orders.Join;
+
+    List<Order> orders = db.Orders.Where(order => order.CustomerId == 1).ToList();
+    Console.WriteLine($"N. of orders: {orders.Count}");
+
+    Console.WriteLine("Order recap:");
+    foreach(Order order in orders)
+    {
+        Console.WriteLine($"Date of order: {order.Date}\nOrder amount: {order.Amount}");
+    }
 }
