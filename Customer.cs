@@ -14,4 +14,11 @@ public class Customer
 
     [Column("customer_email")]
     public string Email { get; set; }
+
+    public Customer(string name, string surname, string email)
+    {
+        this.Name = name;
+        this.Surname = surname;
+        this.Email = email;
+    }
 }

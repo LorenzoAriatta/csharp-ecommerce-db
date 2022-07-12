@@ -19,4 +19,11 @@ public class Order
     public Customer Customer { get; set; }
 
     public List<Product> Products { get; set; }
+    public Order(DateTime date, decimal amount, string status, int customerId)
+    {
+        this.Date = date;
+        this.Amount = amount;
+        this.Status = status;
+        this.CustomerId = customerId;
+    }
 }
